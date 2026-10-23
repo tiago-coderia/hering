@@ -33,8 +33,10 @@ app.use(
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Documentação OpenAPI / Swagger UI
+// Documentação OpenAPI / Swagger UI (disponível tanto em /api/docs quanto em /api/v1/docs e /docs)
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rotas da API v1
 app.use('/api/v1/health', healthRouter);
