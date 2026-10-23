@@ -73,3 +73,12 @@ O sistema adota uma estrutura em monorepo com npm workspaces:
 - `npm run db:seed`: Popula banco com dados demonstrativos reproduzíveis.
 - `docker compose up --build`: Constrói e inicializa os containers `web`, `api` e `postgres`.
 
+---
+
+## 7. Convenção de Mensagens de Commit
+
+- **Idioma Obrigatório:** Todas as mensagens de commit devem ser escritas obrigatoriamente em **Português do Brasil (PT-BR)**.
+- **Padrão Conventional Commits:** `<tipo>(<escopo opcional>): <descrição em português>` (ex.: `fix(api): suportar parametro de query token no authenticateToken para visualizacao de midias`).
+- **Nenhum commit deve ser gerado em inglês.**
+
+
