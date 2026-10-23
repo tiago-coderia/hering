@@ -43,11 +43,12 @@ self.addEventListener('fetch', (event) => {
     return; // Passa direto para a rede
   }
 
-  // Requisição de Navegação HTML (permite abrir o app offline)
+  // Requisição de Navegação HTML (permite abrir qualquer rota do app offline com SPA fallback)
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => {
-        return caches.match('/') || caches.match(event.request);
+      fetch(event.request).catch(async () => {
+        const cache = await caches.open(CACHE_NAME);
+        return (await cache.match('/')) || (await cache.match(event.request));
       })
     );
     return;

@@ -352,6 +352,7 @@ export default function HomePage() {
 
                     <Link
                       href={`/execucao/${m.id}`}
+                      prefetch={true}
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-500 text-white font-bold text-xs hover:bg-brand-600 shadow-sm transition-all"
                     >
                       <Play className="w-3.5 h-3.5 fill-white" />
@@ -451,6 +452,7 @@ export default function HomePage() {
                 <Link
                   key={exec.id}
                   href={`/execucoes/${exec.id}`}
+                  prefetch={true}
                   className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all flex items-center justify-between gap-4 block"
                 >
                   <div className="space-y-1">
