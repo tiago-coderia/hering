@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { apiRequest } from '../../../lib/api';
+import { apiRequest, getApiBaseUrl } from '../../../lib/api';
 import { offlineDB } from '../../../lib/db';
 import {
   ArrowLeft,
@@ -269,8 +269,8 @@ export default function ExecucaoDetalhePage() {
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {resp.fotos.map((f: any) => {
-                        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
-                        const photoUrl = f.previewUrl || `http://localhost:3001/api/v1/fotos/${f.id}`;
+                        const token = typeof window !== 'undefined' ? localStorage.getItem('token') || '' : '';
+                        const photoUrl = f.previewUrl || `${getApiBaseUrl()}/fotos/${f.id}?token=${token}`;
 
                         return (
                           <div
@@ -279,11 +279,7 @@ export default function ExecucaoDetalhePage() {
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                              src={f.previewUrl || `/api/photo-proxy?id=${f.id}`}
-                              onError={(e) => {
-                                // Fallback para chamada com cabeçalho se proxy não disponível
-                                (e.target as any).src = f.previewUrl || '';
-                              }}
+                              src={photoUrl}
                               alt="Evidência"
                               className="w-full h-full object-cover"
                             />

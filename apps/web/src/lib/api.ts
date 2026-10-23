@@ -1,5 +1,21 @@
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+export function getApiBaseUrl(): string {
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    // 1. Se estiver no domínio de produção coderia.dev
+    if (hostname.includes('coderia.dev')) {
+      return 'https://api.coderia.dev/api/v1';
+    }
+
+    // 2. Se estiver acessando via Dev Tunnels do VS Code (ex: xxx-3000.brs.devtunnels.ms)
+    const origin = window.location.origin;
+    if (origin.includes('-3000.')) {
+      return origin.replace('-3000.', '-3001.') + '/api/v1';
+    }
+  }
+
+  // 3. Padrão configurado ou fallback local
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+}
 
 export class ApiError extends Error {
   public statusCode: number;
@@ -31,7 +47,8 @@ export async function apiRequest<T = any>(
     headers['Content-Type'] = 'application/json';
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const baseUrl = getApiBaseUrl();
+  const response = await fetch(`${baseUrl}${endpoint}`, {
     ...options,
     headers,
   });
