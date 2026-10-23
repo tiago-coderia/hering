@@ -20,7 +20,6 @@ import {
   ChevronRight,
   Shield,
   Loader2,
-  RefreshCw,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -113,12 +112,6 @@ export default function HomePage() {
     );
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-    router.push('/login');
-  };
-
   if (!usuario) return null;
 
   return (
@@ -138,9 +131,9 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Ações do Administrador e Logout */}
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          {usuario.cargo === 'Administrador' && (
+        {/* Ações do Administrador */}
+        {usuario.cargo === 'Administrador' && (
+          <div className="flex items-center gap-2 self-start sm:self-auto">
             <Link
               href="/admin/modelos"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-xs sm:text-sm hover:bg-brand-600 transition-colors shadow-sm"
@@ -148,17 +141,8 @@ export default function HomePage() {
               <Settings className="w-4 h-4" />
               <span>Gerenciar Modelos & Versões</span>
             </Link>
-          )}
-
-          <button
-            onClick={handleLogout}
-            className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 font-semibold text-xs sm:text-sm hover:bg-red-50 hover:text-red-700 hover:border-red-200 transition-colors shadow-sm"
-            title="Sair da conta atual"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Trocar Usuário</span>
-          </button>
-        </div>
+          </div>
+        )}
       </div>
 
       {/* DASHBOARD GERENCIAL (RD02) - Administrador e Gerente */}
