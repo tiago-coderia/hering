@@ -26,6 +26,7 @@ export default function LoginPage() {
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('usuario', JSON.stringify(data.usuario));
+      window.dispatchEvent(new Event('storage'));
 
       // Baixa imediatamente cache de referência para uso offline (RF08)
       await SyncEngine.downloadCache();
