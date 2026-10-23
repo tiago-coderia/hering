@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { SyncStatusBadge } from './SyncStatusBadge';
 import { LogOut, ClipboardCheck, Store, Shield } from 'lucide-react';
 
 export function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [user, setUser] = useState<{
     nome: string;
     email: string;
@@ -38,15 +39,18 @@ export function Navbar() {
       window.removeEventListener('storage', checkUser);
       window.removeEventListener('focus', checkUser);
     };
-  }, []);
+  }, [pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    setUser(null);
+    window.dispatchEvent(new Event('storage'));
     router.push('/login');
   };
 
-  if (!user) return null;
+  // Se estiver na tela de login ou não tiver usuário autenticado, nunca renderiza a navbar
+  if (pathname === '/login' || !user) return null;
 
   return (
     <header className="sticky top-0 z-40 bg-brand-500 text-white shadow-md">
