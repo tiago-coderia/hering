@@ -27,6 +27,8 @@ export function authenticateToken(req: Request, _res: Response, next: NextFuncti
     token = authHeader.split(' ')[1];
   } else if ((req as any).cookies && (req as any).cookies.token) {
     token = (req as any).cookies.token;
+  } else if (req.query && typeof req.query.token === 'string') {
+    token = req.query.token;
   }
 
   if (!token) {
