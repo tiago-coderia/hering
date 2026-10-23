@@ -16,14 +16,28 @@ export function Navbar() {
   } | null>(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('usuario');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch {
-        // Ignora erro
+    const checkUser = () => {
+      const storedUser = localStorage.getItem('usuario');
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch {
+          // Ignora erro
+        }
+      } else {
+        setUser(null);
       }
-    }
+    };
+
+    checkUser();
+    // Ouve eventos de storage e foco para manter sincronizado
+    window.addEventListener('storage', checkUser);
+    window.addEventListener('focus', checkUser);
+
+    return () => {
+      window.removeEventListener('storage', checkUser);
+      window.removeEventListener('focus', checkUser);
+    };
   }, []);
 
   const handleLogout = () => {
