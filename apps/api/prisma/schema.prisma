@@ -1,0 +1,194 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Loja {
+  id           String      @id @default(uuid())
+  codigo       String      @unique
+  nome         String
+  cidade       String
+  uf           String
+  ativo        Boolean     @default(true)
+  criadoEm     DateTime    @default(now()) @map("criado_em")
+  atualizadoEm DateTime    @updatedAt @map("atualizado_em")
+
+  usuarios     Usuario[]
+  execucoes    Execucao[]
+  planosAcao   PlanoAcao[]
+
+  @@map("lojas")
+}
+
+model Cargo {
+  id        String   @id @default(uuid())
+  nome      String   @unique // 'Administrador', 'Gerente', 'Operador'
+  descricao String?
+  criadoEm  DateTime @default(now()) @map("criado_em")
+
+  usuarios        Usuario[]
+  versoesModelo   VersaoModeloChecklist[]
+
+  @@map("cargos")
+}
+
+model Usuario {
+  id           String   @id @default(uuid())
+  nome         String
+  email        String   @unique
+  senhaHash    String   @map("senha_hash")
+  cargoId      String   @map("cargo_id")
+  lojaId       String?  @map("loja_id")
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  cargo        Cargo    @relation(fields: [cargoId], references: [id])
+  loja         Loja?    @relation(fields: [lojaId], references: [id])
+
+  execucoes          Execucao[]
+  planosResponsaveis PlanoAcao[]
+
+  @@map("usuarios")
+}
+
+model ModeloChecklist {
+  id           String   @id @default(uuid())
+  nome         String
+  descricao    String?
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  versoes      VersaoModeloChecklist[]
+
+  @@map("modelos_checklist")
+}
+
+model VersaoModeloChecklist {
+  id               String   @id @default(uuid())
+  modeloId         String   @map("modelo_id")
+  versao           Int
+  cargoPermitidoId String   @map("cargo_permitido_id")
+  publicado        Boolean  @default(false)
+  publicadoEm      DateTime? @map("publicado_em")
+  criadoEm         DateTime @default(now()) @map("criado_em")
+  atualizadoEm     DateTime @updatedAt @map("atualizado_em")
+
+  modelo           ModeloChecklist       @relation(fields: [modeloId], references: [id], onDelete: Cascade)
+  cargoPermitido   Cargo                 @relation(fields: [cargoPermitidoId], references: [id])
+  itens            ItemModeloChecklist[]
+  execucoes        Execucao[]
+
+  @@unique([modeloId, versao])
+  @@map("versoes_modelo_checklist")
+}
+
+model ItemModeloChecklist {
+  id             String   @id @default(uuid())
+  versaoModeloId String   @map("versao_modelo_id")
+  ordem          Int
+  descricao      String
+  obrigatorio    Boolean  @default(true)
+  exigeFotoEmNC  Boolean  @default(true) @map("exige_foto_em_nc")
+  peso           Float    @default(1.0)
+  criadoEm       DateTime @default(now()) @map("criado_em")
+  atualizadoEm   DateTime @updatedAt @map("atualizado_em")
+
+  versaoModelo   VersaoModeloChecklist @relation(fields: [versaoModeloId], references: [id], onDelete: Cascade)
+  respostas      Resposta[]
+
+  @@map("itens_modelo_checklist")
+}
+
+model Execucao {
+  id                   String    @id // UUID gerado no cliente
+  versaoModeloId       String    @map("versao_modelo_id")
+  modeloVersaoSnapshot Int       @map("modelo_versao_snapshot")
+  modeloNomeSnapshot   String    @map("modelo_nome_snapshot")
+  lojaId               String    @map("loja_id")
+  usuarioId            String    @map("usuario_id")
+  status               String    // 'RASCUNHO', 'FINALIZADA'
+  pontuacao            Float?    // null se rascunho ou sem itens aplicáveis
+  iniciadaEm           DateTime  @map("iniciada_em")
+  finalizadaEm         DateTime? @map("finalizada_em")
+  sincronizadaEm       DateTime  @default(now()) @map("sincronizada_em")
+  criadoEm             DateTime  @default(now()) @map("criado_em")
+  atualizadoEm         DateTime  @updatedAt @map("atualizado_em")
+
+  versaoModelo         VersaoModeloChecklist @relation(fields: [versaoModeloId], references: [id])
+  loja                 Loja                  @relation(fields: [lojaId], references: [id])
+  usuario              Usuario               @relation(fields: [usuarioId], references: [id])
+  respostas            Resposta[]
+
+  @@index([lojaId, finalizadaEm])
+  @@index([usuarioId, iniciadaEm])
+  @@map("execucoes")
+}
+
+model Resposta {
+  id                      String    @id // UUID gerado no cliente
+  execucaoId              String    @map("execucao_id")
+  itemModeloId            String?   @map("item_modelo_id")
+  itemDescricaoSnapshot   String    @map("item_descricao_snapshot")
+  itemOrdemSnapshot       Int       @map("item_ordem_snapshot")
+  itemObrigatorioSnapshot Boolean   @map("item_obrigatorio_snapshot")
+  itemPesoSnapshot        Float     @default(1.0) @map("item_peso_snapshot")
+  valor                   String    // 'C', 'NC', 'NA'
+  observacao              String?
+  respondidoEm            DateTime  @default(now()) @map("respondido_em")
+  criadoEm                DateTime  @default(now()) @map("criado_em")
+
+  execucao                Execucao             @relation(fields: [execucaoId], references: [id], onDelete: Cascade)
+  itemModelo              ItemModeloChecklist? @relation(fields: [itemModeloId], references: [id])
+  planoAcao               PlanoAcao?
+  fotos                   Foto[]
+
+  @@index([execucaoId])
+  @@map("respostas")
+}
+
+model PlanoAcao {
+  id                  String    @id // UUID gerado no cliente
+  respostaId          String    @unique @map("resposta_id") // Unique: maximo 1 plano de acao por resposta NC
+  lojaId              String    @map("loja_id")
+  descricao           String
+  responsavelId       String    @map("responsavel_id")
+  prazo               DateTime
+  status              String    @default("ABERTO") // 'ABERTO', 'EM_ANDAMENTO', 'CONCLUIDO'
+  revisao             Int       @default(1) // Controle otimista de concorrencia e deteccao de conflito 409
+  observacaoConclusao String?   @map("observacao_conclusao")
+  concluidoEm         DateTime? @map("concluido_em")
+  criadoEm            DateTime  @default(now()) @map("criado_em")
+  atualizadoEm        DateTime  @updatedAt @map("atualizado_em")
+
+  resposta            Resposta  @relation(fields: [respostaId], references: [id], onDelete: Cascade)
+  loja                Loja      @relation(fields: [lojaId], references: [id])
+  responsavel         Usuario   @relation(fields: [responsavelId], references: [id])
+  fotos               Foto[]
+
+  @@index([lojaId, status, prazo])
+  @@map("planos_acao")
+}
+
+model Foto {
+  id            String     @id // UUID gerado no cliente
+  respostaId    String?    @map("resposta_id")
+  planoAcaoId   String?    @map("plano_acao_id")
+  chaveRelativa String     @map("chave_relativa")
+  mimeType      String     @map("mime_type")
+  tamanhoBytes  Int        @map("tamanho_bytes")
+  criadoEm      DateTime   @default(now()) @map("criado_em")
+
+  resposta      Resposta?  @relation(fields: [respostaId], references: [id], onDelete: Cascade)
+  planoAcao     PlanoAcao? @relation(fields: [planoAcaoId], references: [id], onDelete: Cascade)
+
+  @@index([respostaId])
+  @@index([planoAcaoId])
+  @@map("fotos")
+}
+
