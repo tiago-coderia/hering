@@ -1,0 +1,3 @@
+# Diretório para armazenamento local de fotos persistentes.
+# As fotos gravadas aqui são ignoradas pelo Git.
+
