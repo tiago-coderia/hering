@@ -33,7 +33,8 @@ O sistema foi desenvolvido para atender às rotinas diárias de lojas da rede (a
 | **Prisma ORM** | Mapeamento Relacional | Migrações versionadas declarativas, seed reproduzível e tipagem automatizada compatível com TypeScript. |
 | **Zod** | Validação de Dados | Validação consistente de payloads no backend e no frontend com mensagens de erro claras. |
 | **Swagger / OpenAPI 3.0** | Documentação Viva da API | Contrato REST documentado interativamente em `/api/docs`. |
-| **Vitest + Supertest** | Suíte de Testes | Execução veloz de testes unitários e testes de integração com banco de dados real. |
+| **Vitest + Supertest** | Testes Unitários e Integração | Bateria de testes de serviços, cálculo matemático de score e rotas da API com banco real. |
+| **Playwright** | Testes End-to-End (E2E) PWA | Automação completa simulando dispositivos móveis (Pixel 5) e Desktop Chrome, desconexão offline (`setOffline`), IndexedDB, regras de pontuação e RBAC. |
 
 ---
 
@@ -91,18 +92,40 @@ npm run dev
 
 ## 5. Comandos de Validação e Testes
 
+### 5.1 Testes Unitários e de Integração (Vitest)
 ```bash
-# Executar todos os testes automatizados (unitários e de integração)
+# Executar todos os testes automatizados da API e Web
 npm test
 
-# Executar apenas testes da API
+# Executar apenas testes de integração e endpoints da API
 npm run test:api
+
+# Executar apenas testes unitários do Frontend
+npm run test:web
 
 # Executar checagem estrita de tipos TypeScript
 npm run typecheck
 
 # Gerar build de produção de todos os workspaces
 npm run build
+```
+
+### 5.2 Testes End-to-End e PWA Offline (Playwright)
+O projeto conta com uma suíte de 14 testes E2E cobrindo RBAC, cálculo ponderado de score com fotos obrigatórias, operação 100% offline via IndexedDB e resolução de planos de ação:
+
+```bash
+# Executar suíte completa E2E (Desktop Chrome e Mobile Chrome - Pixel 5)
+npm run test:e2e
+
+# Executar com a interface interativa visual do Playwright (UI Runner)
+npm run test:e2e:ui
+
+# Abrir relatório visual HTML da última execução
+npm run test:e2e:report
+
+# Executar contra o ambiente de Produção deployado em nuvem:
+# (PowerShell no Windows)
+$env:PLAYWRIGHT_TEST_BASE_URL="https://pwa.coderia.dev"; npm run test:e2e
 ```
 
 ---
@@ -196,7 +219,7 @@ npm run build
 
 ## 11. Guia de Apresentação Técnica e Documentação Arquitetural (SDD)
 
-- **Documentação Arquitetural e Decisões de Design (SDD 01 a 11):** Consulte a pasta [docs/SDD/README.md](docs/SDD/README.md) para a linha do tempo completa do desenvolvimento e decisões técnicas.
+- **Documentação Arquitetural e Decisões de Design (SDD 01 a 12):** Consulte a pasta [docs/SDD/README.md](docs/SDD/README.md) para a linha do tempo completa do desenvolvimento, decisões técnicas e a especificação dos testes E2E com Playwright ([SDD-12](docs/SDD/SDD12-testes-e2e-playwright.md)).
 - **Guia de Contexto para Agentes e LLMs:** Consulte [CONTEXT_AGENT.md](CONTEXT_AGENT.md) para diretrizes operacionais de governança de IA.
 - **Roteiro de Apresentação e Perguntas Técnicas:** Consulte o documento detalhado em [docs/GUIA_APRESENTACAO_TECNICA.md](docs/GUIA_APRESENTACAO_TECNICA.md) com:
   - Análise aprofundada da arquitetura e responsabilidades de cada camada;

@@ -70,17 +70,17 @@ Consulte a pasta [`docs/SDD/`](./docs/SDD/README.md) para entender em detalhes a
 - [`docs/SDD/SDD09-sync-engine-compressao-fotos-ui.md`](./docs/SDD/SDD09-sync-engine-compressao-fotos-ui.md): SyncEngine, compressão via Canvas (RD04) e UI.
 - [`docs/SDD/SDD10-telas-pwa-dashboard-modelos.md`](./docs/SDD/SDD10-telas-pwa-dashboard-modelos.md): Telas do PWA, ranking por loja (RD02) e gestão de versões.
 - [`docs/SDD/SDD11-deploy-producao-ajustes-finais.md`](./docs/SDD/SDD11-deploy-producao-ajustes-finais.md): Deploy no Easypanel, resolução dinâmica e correções de produção.
+- [`docs/SDD/SDD12-testes-e2e-playwright.md`](./docs/SDD/SDD12-testes-e2e-playwright.md): Automação de testes End-to-End (E2E) com Playwright (Offline-first, RBAC e Score).
 
 ---
 
 ## 4. Credenciais de Demonstração e Acesso Rápido
 
-Para simular fluxos ou planejar scripts de teste:
-- **Senha padrão de todos os usuários:** `hering123`
-- `admin@hering.com.br` -> Administrador Global (Acesso irrestrito a todas as lojas, dashboard consolidado e gestão de modelos).
-- `gerente.blumenau@hering.com.br` -> Gerente da Loja Blumenau Centro (`LJ-001`).
-- `operador.blumenau@hering.com.br` -> Operador da Loja Blumenau Centro (`LJ-001`).
-- `gerente.paulista@hering.com.br` -> Gerente da Loja São Paulo Paulista (`LJ-002`).
+Para simular fluxos ou planejar scripts de teste (consulte botões de atalho na tela de login):
+- `admin@hering.com.br` (`AdminPassword123!`) -> Administrador Global (Acesso irrestrito a todas as lojas, dashboard consolidado e gestão de modelos).
+- `gerente.blumenau@hering.com.br` (`GerentePassword123!`) -> Gerente da Loja Blumenau Centro (`LJ-001`).
+- `operador.blumenau@hering.com.br` (`OperadorPassword123!`) -> Operador da Loja Blumenau Centro (`LJ-001`).
+- `gerente.paulista@hering.com.br` (`GerentePassword123!`) -> Gerente da Loja São Paulo Paulista (`LJ-002`).
 
 ---
 

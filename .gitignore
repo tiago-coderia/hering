@@ -47,3 +47,6 @@ test-uploads-temp/
 # PLAYWRIGHT
 playwright-report/
 test-results/
+apps/web/playwright-report/
+apps/web/test-results/
+.playwright/

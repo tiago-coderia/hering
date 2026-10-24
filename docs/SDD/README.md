@@ -21,7 +21,7 @@ A sigla **SDD** (*Software Design Document* ou *System Design Document*), alinha
 | [SDD09-sync-engine-compressao-fotos-ui.md](./SDD09-sync-engine-compressao-fotos-ui.md) | Sincronização Mobile | `b9cb7d8` | Motor `SyncEngine` com upload em 2 fases, compressão de imagens no browser com canvas (RD04) e badge de status. |
 | [SDD10-telas-pwa-dashboard-modelos.md](./SDD10-telas-pwa-dashboard-modelos.md) | Aplicação Web | `3e296f2` | Login rápido com seed, dashboard gerencial com ranking (RD02), execução passo a passo e gestão de modelos. |
 | [SDD11-deploy-producao-ajustes-finais.md](./SDD11-deploy-producao-ajustes-finais.md) | Deploy & Refinamento | `e8ebf73` a `dcead61` | Deploy no Easypanel com Docker, resolução dinâmica de URLs, ajustes de rotas Swagger e refinamento de UX. |
-| [SDD12-testes-e2e-playwright.md](./SDD12-testes-e2e-playwright.md) | Qualidade & E2E | Em andamento | Configuração do Playwright, suíte de testes E2E offline-first, RBAC e regras de conformidade. |
+| [SDD12-testes-e2e-playwright.md](./SDD12-testes-e2e-playwright.md) | Qualidade & E2E | `09305d4` e `81897a0` | Configuração do Playwright, suíte de 14 testes E2E (Desktop e Mobile) cobrindo offline-first, RBAC e regras de conformidade. |
 
 ---
 

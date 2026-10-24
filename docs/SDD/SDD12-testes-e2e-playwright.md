@@ -2,7 +2,7 @@
 
 - **Identificador:** SDD-12
 - **Fase:** Qualidade de Software, Testes End-to-End (E2E) e Automação PWA
-- **Status:** Planejado e em Implementação
+- **Status:** Implementado e Validado (14/14 testes passando)
 - **Escopo:** Frontend (`apps/web`), Integração API (`apps/api`) e Simulação Offline/PWA
 
 ---
