@@ -194,11 +194,13 @@ npm run build
 
 ---
 
-## 11. Guia de Apresentação Técnica
+## 11. Guia de Apresentação Técnica e Documentação Arquitetural (SDD)
 
-Consulte o documento detalhado em [docs/GUIA_APRESENTACAO_TECNICA.md](docs/GUIA_APRESENTACAO_TECNICA.md) com:
-- Análise aprofundada da arquitetura e responsabilidades de cada camada;
-- Justificativa e mapeamento de todos os índices SQL criados;
-- Respostas diretas e fundamentadas às 3 perguntas técnicas do desafio;
-- Roteiro de apresentação de 15 minutos passo a passo.
+- **Documentação Arquitetural e Decisões de Design (SDD 01 a 11):** Consulte a pasta [docs/SDD/README.md](docs/SDD/README.md) para a linha do tempo completa do desenvolvimento e decisões técnicas.
+- **Guia de Contexto para Agentes e LLMs:** Consulte [CONTEXT_AGENT.md](CONTEXT_AGENT.md) para diretrizes operacionais de governança de IA.
+- **Roteiro de Apresentação e Perguntas Técnicas:** Consulte o documento detalhado em [docs/GUIA_APRESENTACAO_TECNICA.md](docs/GUIA_APRESENTACAO_TECNICA.md) com:
+  - Análise aprofundada da arquitetura e responsabilidades de cada camada;
+  - Justificativa e mapeamento de todos os índices SQL criados;
+  - Respostas diretas e fundamentadas às 3 perguntas técnicas do desafio;
+  - Roteiro de apresentação de 15 minutos passo a passo.
 
