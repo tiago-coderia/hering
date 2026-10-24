@@ -51,3 +51,4 @@ Para garantir que essas premissas continuem íntegras sem regressão, adotamos o
    - `apps/web/e2e/action-plans.spec.ts`
 5. **Scripts npm:** Adição de `test:e2e` e `test:e2e:ui` nos scripts de `apps/web` e na raiz do monorepo.
 6. **Documentação e Guia de Execução:** Instruções passo a passo de como rodar headless, com interface gráfica e em modo debug.
+

@@ -43,3 +43,7 @@ test-uploads-temp/
 # Prisma sqlite / local dev databases if any
 *.db
 *.db-journal
+
+# PLAYWRIGHT
+playwright-report/
+test-results/

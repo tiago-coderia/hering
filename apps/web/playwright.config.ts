@@ -32,4 +32,16 @@ export default defineConfig({
       use: { ...devices['Pixel 5'] },
     },
   ],
+
+  /* Inicia os servidores locais web e api automaticamente se não estiverem rodando */
+  webServer: process.env.PLAYWRIGHT_TEST_BASE_URL
+    ? undefined
+    : {
+        command: 'npm run dev',
+        url: 'http://localhost:3000',
+        reuseExistingServer: true,
+        timeout: 120 * 1000,
+        cwd: '../../',
+      },
 });
+

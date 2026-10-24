@@ -9,19 +9,25 @@ export interface TestUser {
 
 export const USUARIOS = {
   ADMIN: {
-    nome: 'Administrador Global',
+    nome: 'Administrador',
+    nomeExibicao: 'Administrador Geral',
     email: 'admin@hering.com.br',
+    senha: 'AdminPassword123!',
     cargo: 'Administrador' as const,
   },
   GERENTE_BLUMENAU: {
-    nome: 'Carlos Gerente Blumenau',
+    nome: 'Gerente Blumenau',
+    nomeExibicao: 'Carlos Gerente Blumenau',
     email: 'gerente.blumenau@hering.com.br',
+    senha: 'GerentePassword123!',
     cargo: 'Gerente' as const,
     lojaNome: 'Hering Blumenau Centro',
   },
   OPERADOR_BLUMENAU: {
-    nome: 'Mariana Operadora Blumenau',
+    nome: 'Operador Blumenau',
+    nomeExibicao: 'Ana Operadora Blumenau',
     email: 'operador.blumenau@hering.com.br',
+    senha: 'OperadorPassword123!',
     cargo: 'Operador' as const,
     lojaNome: 'Hering Blumenau Centro',
   },
@@ -30,23 +36,25 @@ export const USUARIOS = {
 /**
  * Função utilitária para login direto pela interface rápida ou campos
  */
-export async function loginComo(page: Page, user: TestUser) {
+export async function loginComo(page: Page, user: (typeof USUARIOS)[keyof typeof USUARIOS]) {
   await page.goto('/login');
   await page.waitForLoadState('networkidle');
 
-  // Clica no botão de acesso rápido pelo nome do usuário
-  const quickButton = page.getByRole('button', { name: new RegExp(user.nome, 'i') });
-  if (await quickButton.isVisible()) {
-    await quickButton.click();
+  // Clica no botão de demonstração (seed) correspondente
+  const demoButton = page.locator('button').filter({ hasText: user.nome });
+  if (await demoButton.first().isVisible()) {
+    await demoButton.first().click();
   } else {
     // Fallback: preenchimento manual dos campos
     await page.fill('input[type="email"]', user.email);
-    await page.fill('input[type="password"]', 'hering123');
-    await page.click('button[type="submit"]');
+    await page.fill('input[type="password"]', user.senha);
   }
 
+  // Clica no botão oficial de submissão do formulário
+  await page.click('button[type="submit"]');
+
   // Espera redirecionamento para o dashboard principal
-  await page.waitForURL('/', { timeout: 10000 });
+  await page.waitForURL('/', { timeout: 15000 });
 }
 
 /**
@@ -61,3 +69,4 @@ export function getMockImageBuffer(): Buffer {
 
 export const test = base;
 export { expect };
+

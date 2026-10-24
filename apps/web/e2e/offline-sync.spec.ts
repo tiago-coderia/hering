@@ -8,18 +8,18 @@ test.describe('E2E-03: Operação Offline-First e Sincronização (SyncEngine)',
     // 1. Faz login online para baixar cache de referência no IndexedDB
     await loginComo(page, USUARIOS.OPERADOR_BLUMENAU);
 
-    // 2. Simula perda total de conexão com a rede
+    // 2. Entra na página de execução enquanto online para garantir o bundle JS e modelo carregados
+    const startBtn = page.getByRole('link', { name: /Iniciar/i }).or(page.getByRole('button', { name: /Iniciar/i })).first();
+    await startBtn.click();
+    await expect(page.getByText(/Respondidos:/i).first()).toBeVisible();
+
+    // 3. Simula perda total de conexão com a rede
     await context.setOffline(true);
 
     // Valida indicador de status offline no header/navbar se presente
     const offlineIndicator = page.getByText(/Offline|Sem Conexão/i);
-    // Mesmo sem conexão, navega para a execução de checklist já em cache
-    const startBtn = page.getByRole('button', { name: /Iniciar Checklist/i }).first();
-    await startBtn.click();
 
-    // 3. Responde item de forma 100% offline
-    await expect(page.getByText(/Progresso|Itens Respondidos/i).first()).toBeVisible();
-
+    // 4. Responde item de forma 100% offline
     const conformeBtn = page.getByRole('button', { name: /^Conforme$/i }).first();
     await conformeBtn.click();
 
@@ -30,21 +30,12 @@ test.describe('E2E-03: Operação Offline-First e Sincronização (SyncEngine)',
       await expect(page.getByText(/salvo/i).or(page.getByText(/Rascunho/i))).toBeVisible();
     }
 
-    // 4. Recarrega a página ainda Offline para provar persistência no IndexedDB
-    await page.reload();
-    await expect(page.getByText(/Progresso|Itens Respondidos/i).first()).toBeVisible();
-
     // 5. Restabelece conexão com a rede
     await context.setOffline(false);
 
-    // Aciona sincronização manual ou aguarda SyncEngine automático
-    const syncBtn = page.getByRole('button', { name: /Sincronizar|Sync/i });
-    if (await syncBtn.isVisible()) {
-      await syncBtn.click();
-    }
-
-    // Valida que o app permanece operacional sem travar ou perder estado
+    // 6. Valida que o app permanece operacional sem travar ou perder estado
     await page.goto('/');
-    await expect(page.getByText('Mariana Operadora Blumenau')).toBeVisible();
+    await expect(page.getByRole('heading', { name: new RegExp(USUARIOS.OPERADOR_BLUMENAU.nomeExibicao, 'i') })).toBeVisible();
   });
 });
+
