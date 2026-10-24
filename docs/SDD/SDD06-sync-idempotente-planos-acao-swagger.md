@@ -71,3 +71,4 @@ O sistema precisa garantir:
 
 - Validação rigorosa dos schemas via biblioteca **Zod** antes de atingir os serviços.
 - Testes cobrindo detecção de 409 em edições simultâneas de planos de ação.
+

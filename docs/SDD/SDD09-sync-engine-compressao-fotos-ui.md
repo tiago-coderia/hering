@@ -52,3 +52,4 @@ export class SyncEngine {
 
 - Testes de captura e compressão em navegadores mobile demonstrando redução de tamanho de imagem em milissegundos sem travamento de thread.
 - Testes simulando desconexão proposital durante o envio de fotos: os metadados mantêm a rastreabilidade e a sincronização retoma o upload assim que a rede restabelece.
+

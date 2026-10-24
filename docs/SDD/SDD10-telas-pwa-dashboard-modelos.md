@@ -47,3 +47,4 @@ A interface do usuário do PWA precisa oferecer uma experiência intuitiva, mode
 ## 3. Validação
 
 - Testes de usabilidade em telas mobile simulando fluxo completo do operador: login -> abertura de checklist -> preenchimento com fotos -> envio com cálculo automático de score -> visualização do relatório no histórico.
+

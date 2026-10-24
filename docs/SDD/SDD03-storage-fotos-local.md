@@ -52,3 +52,4 @@ Desenvolvidos testes automatizados com Vitest cobrindo:
 2. Leitura com streaming (`getStream`) preservando integridade de bytes.
 3. Verificação de existência (`exists`) e remoção idempotente (`delete`).
 4. **Teste de Segurança:** Bloqueio efetivo de tentativas de Path Traversal com chaves contendo `../`.
+

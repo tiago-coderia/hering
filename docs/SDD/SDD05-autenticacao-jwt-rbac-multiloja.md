@@ -62,3 +62,4 @@ A segurança foi validada através de testes automatizados de integração que s
 - Operador tentando criar/editar modelos de checklist (`403 Forbidden`).
 - Gerente da Loja Blumenau tentando ler execuções ou fotos da Loja São Paulo (`403 Forbidden`).
 - Administrador acessando métricas e relatórios globais com sucesso (`200 OK`).
+

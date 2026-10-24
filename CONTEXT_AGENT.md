@@ -90,3 +90,4 @@ Se for solicitado a você criar uma nova funcionalidade, refatorar código ou co
 1. **Verifique os testes existentes:** Execute `npm run test` em `apps/api` para garantir que nada foi quebrado.
 2. **Atualize ou crie um novo SDD:** Se introduzir uma nova capacidade arquitetural relevante, crie o documento sequencial `docs/SDD/SDD12-...md` e atualize o índice `docs/SDD/README.md`.
 3. **Mantenha os commits em PT-BR:** Formule o commit com verbo no infinitivo ou presente em português do Brasil conforme as regras do [AGENTS.md](file:///p:/09.%20Testes/hering/AGENTS.md).
+

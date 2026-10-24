@@ -31,3 +31,4 @@ Se você for uma LLM ou agente autônomo trabalhando neste projeto:
 2. **Respeite as regras arquiteturais fixadas em [`AGENTS.md`](../AGENTS.md).**
 3. **Mantenha obrigatoriamente todas as mensagens de commit em Português do Brasil (PT-BR).**
 4. **Priorize a autoridade de segurança do Backend (`apps/api`) e o modelo 100% Offline-First no Frontend (`apps/web`).**
+

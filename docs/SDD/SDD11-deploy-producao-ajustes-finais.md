@@ -50,3 +50,4 @@ Durante o processo de implantação e testes em rede pública e smartphones reai
 - **Frontend PWA:** [https://pwa.coderia.dev](https://pwa.coderia.dev)
 - **API Healthcheck:** [https://api.coderia.dev/api/v1/health](https://api.coderia.dev/api/v1/health)
 - **Documentação Interativa Swagger:** [https://api.coderia.dev/api/v1/docs](https://api.coderia.dev/api/v1/docs)
+

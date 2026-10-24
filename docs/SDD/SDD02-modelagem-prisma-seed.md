@@ -69,3 +69,4 @@ O script de seed (`apps/api/prisma/seed.ts`) implementa upsert idempotente para 
   ```bash
   npx prisma db seed
   ```
+

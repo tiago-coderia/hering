@@ -64,3 +64,4 @@ Separou-se rigorosamente o estado do ciclo de vida da execução e o estado da s
 ## 3. Validação
 
 - Testes no Chrome DevTools com a flag **Offline** ativada comprovando o carregamento da casca do aplicativo e leitura instantânea de modelos persistidos no IndexedDB.
+

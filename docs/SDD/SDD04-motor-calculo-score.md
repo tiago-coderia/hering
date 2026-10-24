@@ -80,3 +80,4 @@ Bateria de testes em Vitest [`scoreCalculator.test.ts`](file:///p:/09.%20Testes/
 - **Desconsideração Estrita de `NA`:** Item `C` (peso 2), item `NC` (peso 2) e item `NA` (peso 5) resultam exatamente em `50.00%` (o peso 5 é ignorado).
 - **Denominador Zero:** Três itens respondidos com `NA` retornam score `null`.
 - **Bloqueio de Obrigatórios:** Tentativa de cálculo com item obrigatório ausente lança exceção com status 400.
+
