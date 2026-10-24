@@ -56,3 +56,4 @@ Antes de dar uma tarefa por concluída, o agente deve validar:
 4. **Cálculo de Score:** O caso de borda 100% `NA` retorna `null` ("N/A")?
 5. **Commits:** A mensagem do commit está **obrigatoriamente em Português do Brasil (PT-BR)** no padrão Conventional Commits?
 6. **Testes:** Os testes existentes continuam passando (`npm run test` em `apps/api`)?
+
